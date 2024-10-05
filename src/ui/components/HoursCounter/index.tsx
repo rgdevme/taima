@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { css } from '@emotion/react'
 import tw from 'twin.macro'
-import { CaretLeftFilled } from '@ant-design/icons'
+import { AiFillCaretLeft } from 'react-icons/ai'
 
 const style = css`
-	${tw`
+  ${tw`
 	flex
 	flex-row
 	relative
@@ -18,114 +18,118 @@ const style = css`
 	text-gray-300
 	`}
 
-	&[data-layout='column'] {
-		${tw`
+  &[data-layout='column'] {
+    ${tw`
 		flex-col
 		`}
-	}
+  }
 
-	&[data-selected='true'] {
-		${tw`
+  &[data-selected='true'] {
+    ${tw`
 		font-bold
 		text-gray-400
 		`}
-	}
+  }
 
-	&,
-	* {
-		${tw`transition-all`}
-	}
+  &,
+  * {
+    ${tw`transition-all`}
+  }
 
-	.bar {
-		${tw`
+  .bar {
+    ${tw`
 		relative
 		flex-1
 		`}
 
-		&, > div {
-			${tw`
+    &, > div {
+      ${tw`
 			h-2
 			w-full
 			rounded
 			`}
-		}
+    }
 
-		> div {
-			${tw`
+    > div {
+      ${tw`
 			absolute
 			top-0
 			left-0
 			z-0
 			`}
-		}
+    }
 
-		.max {
-			${tw`
+    .max {
+      ${tw`
 			bg-gray-200
 			`}
-		}
-		.value {
-			${tw`
+    }
+    .value {
+      ${tw`
 			bg-cyan-500
 			z-1
 			`}
-		}
-	}
+    }
+  }
 
-	.label {
-		${tw`
+  .label {
+    ${tw`
 		text-center
 		text-xs
 		order-first
 		`}
-	}
-	.text,
-	.indicator {
-		${tw`
+  }
+  .text,
+  .indicator {
+    ${tw`
 		text-xs
 		order-last
 		`}
-	}
+  }
 `
 
 export const HoursCounter: FC<{
-	value: number
-	id: string
-	label?: string
-	max?: number
-	fullLabel?: boolean
-	selected?: boolean
-	onSelect?: (label: string) => void
+  value: number
+  id: string
+  label?: string
+  max?: number
+  fullLabel?: boolean
+  selected?: boolean
+  onSelect?: (label: string) => void
 }> = ({
-	value,
-	id,
-	label,
-	max = 8,
-	fullLabel = false,
-	selected = false,
-	onSelect
+  value,
+  id,
+  label,
+  max = 8,
+  fullLabel = false,
+  selected = false,
+  onSelect,
 }) => {
-	return (
-		<div
-			className='counter'
-			css={style}
-			data-layout={!label ? 'column' : 'row'}
-			data-selected={selected}
-			onClick={!onSelect ? null : () => onSelect(id)}>
-			<span className='text'>
-				{value} / {max}
-			</span>
-			<div className='bar'>
-				<div className='value' style={{ width: `${(100 * value) / max}%` }} />
-				<div className='max' />
-			</div>
-			{label && <div className='label'>{fullLabel ? label : label[0]}</div>}
-			{
-				<CaretLeftFilled
-					className='indicator'
-					style={{ opacity: selected ? '100%' : '0%' }}
-				/>
-			}
-		</div>
-	)
+  return (
+    <div
+      className='counter'
+      css={style}
+      data-layout={!label ? 'column' : 'row'}
+      data-selected={selected}
+      onClick={!onSelect ? null : () => onSelect(id)}
+    >
+      <span className='text'>
+        {value} / {max}
+      </span>
+      <div className='bar'>
+        <div
+          className='value'
+          style={{ width: `${(100 * value) / max}%` }}
+        />
+        <div className='max' />
+      </div>
+      {label && <div className='label'>{fullLabel ? label : label[0]}</div>}
+      {
+        <AiFillCaretLeft
+          className='indicator'
+          style={{ opacity: selected ? '100%' : '0%' }}
+        />
+      }
+    </div>
+  )
 }

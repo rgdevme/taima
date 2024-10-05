@@ -1,45 +1,48 @@
 import {
-	useMatch,
-	useMatches,
-	useLocation,
-	useNavigate
+  useMatch,
+  useMatches,
+  useLocation,
+  useNavigate,
 } from 'react-router-dom'
 import { routes } from '../router/routes'
-import { Menu, MenuProps } from 'antd'
+import { ActionIcon, Menu, Tooltip } from '@mantine/core'
 import { useEffect } from 'react'
 
-type MenuItem = Required<MenuProps>['items'][number]
+const { Item, Dropdown } = Menu
 
 export const SideMenu = () => {
-	const navigate = useNavigate()
-	const loc = useLocation()
-	const m = useMatch('/')
+  const navigate = useNavigate()
+  const loc = useLocation()
+  const m = useMatch('/')
 
-	useEffect(() => {
-		console.log({ loc, wloc: window.location })
-	})
+  useEffect(() => {
+    console.log({ loc, wloc: window.location })
+  })
 
-	return (
-		<Menu
-			className='side-menu'
-			selectedKeys={[
-				Object.entries(routes).find(r => r[1].path === loc.hash)?.[0] ?? null
-			]}
-			items={Object.entries(routes)
-				.filter(x => x[1].show)
-				.map(
-					([key, route]) =>
-						({
-							title: route.name,
-							icon: route.icon,
-							label: route.name,
-							key: key,
-							onClick: () =>
-								navigate(route.path, {
-									replace: true
-								})
-						} as MenuItem)
-				)}
-		/>
-	)
+  return (
+    <Menu>
+      {/* selectedKeys={[
+      		Object.entries(routes).find(r => r[1].path === loc.hash)?.[0] ?? null,
+      	]} */}
+      <Dropdown>
+        {Object.entries(routes)
+          .filter(x => x[1].show)
+          .map(([key, route]) => (
+            <Item key={key}>
+              <Tooltip label={route.name}>
+                <ActionIcon
+                  onClick={() =>
+                    navigate(route.path, {
+                      replace: true,
+                    })
+                  }
+                >
+                  {route.icon}
+                </ActionIcon>
+              </Tooltip>
+            </Item>
+          ))}
+      </Dropdown>
+    </Menu>
+  )
 }

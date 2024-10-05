@@ -1,7 +1,7 @@
 import { Request, Router } from 'express'
 import { instance } from '../axios'
 import { config } from '../config'
-import entries from '../../playground/entries'
+import entries from '../playground/entries'
 
 function reprintLine(text: string) {
   process.stdout.clearLine(0)

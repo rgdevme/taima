@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { instance } from '../axios'
-import { Task, TasksGet, TasksResult } from '../../types/task'
+import { Task, TasksGet, TasksResult } from '../../common/types/task'
 import { config } from '../config'
 
 const tasks = Router()

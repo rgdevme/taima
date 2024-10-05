@@ -5,15 +5,19 @@
   "repository": "git@github.com:rgdevme/taima.git",
   "author": "Rafael González <rafael.gonzalez81@gmail.com>",
   "license": "MIT",
+  "private": true,
   "engines": {
     "node": "^20"
   },
   "scripts": {
     "start:electron": "nodemon --watch .dist --exec \"electron --trace-warnings .\"",
-    "watch:all": "parcel watch --no-cache --target all",
+    "watch:all": "parcel watch --target all",
     "config:clean": "npx rimraf node_modules .dist .parcel-cache",
-    "config:reset": "yarn run config:clean && yarn"
+    "config:reset": "npm run config:clean && npm i"
   },
+  "workspaces": [
+    "src/**"
+  ],
   "devDependencies": {
     "@babel/core": "^7.22.10",
     "@babel/plugin-transform-object-rest-spread": "^7.22.5",
